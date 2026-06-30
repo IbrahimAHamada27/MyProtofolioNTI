@@ -1,0 +1,61 @@
+<div class="dashboard-card">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+    <h2>Projects Management</h2>
+    <button class="btn-primary" (click)="showForm ? cancelEdit() : showForm = true">
+      {{ showForm ? 'Cancel' : 'Add New Project' }}
+    </button>
+  </div>
+
+  @if (showForm) {
+    <div style="background: #f9fafb; padding: 24px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+      <h3 style="margin-bottom: 16px;">{{ editingId ? 'Edit Project' : 'Add New Project' }}</h3>
+      <form class="dashboard-form" (submit)="onSubmit($event)">
+        <div class="form-group">
+          <label>Project Title</label>
+          <input type="text" name="title" [(ngModel)]="formData.title" required class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" [(ngModel)]="formData.description" rows="4" required class="form-input"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Project Link</label>
+          <input type="url" name="link" [(ngModel)]="formData.link" required class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Technologies (comma separated)</label>
+          <input type="text" name="technologies" [(ngModel)]="formData.technologies" required class="form-input" placeholder="e.g. Angular, Node.js">
+        </div>
+        <button type="submit" class="btn-primary">{{ editingId ? 'Update Project' : 'Add Project' }}</button>
+      </form>
+    </div>
+  }
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Technologies</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (project of projects; track project._id) {
+        <tr>
+          <td>{{ project.title }}</td>
+          <td>{{ project.description }}</td>
+          <td>{{ project.technologies.join(', ') }}</td>
+          <td>
+            <button class="btn-primary" style="margin-right: 8px; background-color: #f59e0b;" (click)="editProject(project)">Edit</button>
+            <button class="btn-danger" (click)="deleteProject(project._id)">Delete</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center;">No projects found.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

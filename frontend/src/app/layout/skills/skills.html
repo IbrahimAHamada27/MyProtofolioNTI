@@ -1,0 +1,28 @@
+<section class="skills-section">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title">My Expertise</h2>
+      <p class="section-subtitle">The techniques and tools I use for software testing and to develop my skills.</p>
+    </div>
+
+    <div class="skills-grid">
+      @for (skill of skills; track skill._id) {
+        <div class="card">
+          <div class="card-content">
+            <div class="icon-wrapper">
+              @if (skill.iconUrl && skill.iconUrl.startsWith('/uploads/')) {
+                <img [src]="'http://localhost:3000' + skill.iconUrl" alt="icon" style="width: 40px; height: 40px; object-fit: contain;">
+              } @else {
+                <span class="icon">{{ skill.iconUrl }}</span>
+              }
+            </div>
+            <h3 class="card-title">{{ skill.name }}</h3>
+            <p class="card-desc">{{ skill.description }}</p>
+          </div>
+        </div>
+      } @empty {
+        <p style="text-align: center; width: 100%; color: #9ca3af;">No skills added yet. Add some from the Admin Dashboard.</p>
+      }
+    </div>
+  </div>
+</section>

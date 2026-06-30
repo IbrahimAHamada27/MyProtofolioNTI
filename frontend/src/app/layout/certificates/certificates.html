@@ -1,0 +1,23 @@
+<section class="certificates-section">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title">My Certificates</h2>
+      <p class="section-subtitle">Credentials and courses I have completed.</p>
+    </div>
+
+    <div class="cert-grid">
+      @for (cert of certificates; track cert._id) {
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <div class="cert-content">
+            <h3 class="cert-title">{{ cert.title }}</h3>
+            <div class="cert-issuer">{{ cert.issuer }}</div>
+            <div class="cert-date">{{ cert.date }}</div>
+          </div>
+        </div>
+      } @empty {
+        <p style="text-align: center; color: #6b7280; font-style: italic; grid-column: 1 / -1;">No certificates found.</p>
+      }
+    </div>
+  </div>
+</section>

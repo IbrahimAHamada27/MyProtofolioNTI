@@ -1,0 +1,53 @@
+<div class="dashboard-card">
+  <h2>Certificates Management</h2>
+  
+  <button class="btn-primary" style="margin-bottom: 16px;" (click)="showForm ? cancelEdit() : showForm = true">
+    {{ showForm ? 'Cancel' : 'Add New Certificate' }}
+  </button>
+
+  @if (showForm) {
+    <form class="dashboard-form" (submit)="onSubmit($event)" style="margin-bottom: 24px;">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" name="title" [(ngModel)]="formData.title" required class="form-input">
+      </div>
+      <div class="form-group">
+        <label>Issuer</label>
+        <input type="text" name="issuer" [(ngModel)]="formData.issuer" required class="form-input">
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="text" name="date" [(ngModel)]="formData.date" required class="form-input">
+      </div>
+      <button type="submit" class="btn-primary">{{ editingId ? 'Update Certificate' : 'Save Certificate' }}</button>
+    </form>
+  }
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Issuer</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (cert of certificates; track cert._id) {
+        <tr>
+          <td>{{ cert.title }}</td>
+          <td>{{ cert.issuer }}</td>
+          <td>{{ cert.date }}</td>
+          <td>
+            <button class="btn-primary" style="margin-right: 8px; background-color: #f59e0b;" (click)="editCertificate(cert)">Edit</button>
+            <button class="btn-danger" (click)="deleteCertificate(cert._id)">Delete</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center;">No certificates found.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

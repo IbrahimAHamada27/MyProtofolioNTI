@@ -1,0 +1,65 @@
+<div class="dashboard-card">
+  <h2>Skills Management</h2>
+  
+  <button class="btn-primary" style="margin-bottom: 16px;" (click)="showForm ? cancelEdit() : showForm = true">
+    {{ showForm ? 'Cancel' : 'Add New Skill' }}
+  </button>
+
+  @if (showForm) {
+    <form class="dashboard-form" (submit)="onSubmit($event)" style="margin-bottom: 24px;">
+      <div class="form-group">
+        <label>Skill Name</label>
+        <input type="text" name="name" [(ngModel)]="formData.name" required class="form-input" placeholder="e.g. Angular">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" [(ngModel)]="formData.category" required class="form-input" placeholder="e.g. Frontend">
+      </div>
+      <div class="form-group">
+        <label>Description (Tools/Technologies)</label>
+        <textarea name="description" [(ngModel)]="formData.description" required class="form-input" rows="3" placeholder="e.g. HTML, CSS, React"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Icon URL (Optional if uploading file)</label>
+        <input type="text" name="iconUrl" [(ngModel)]="formData.iconUrl" class="form-input" placeholder="e.g. https://icon.url">
+      </div>
+      <div class="form-group">
+        <label>Upload Icon Image</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="form-input">
+      </div>
+      <button type="submit" class="btn-primary">{{ editingId ? 'Update Skill' : 'Save Skill' }}</button>
+    </form>
+  }
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Icon</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (skill of skills; track skill._id) {
+        <tr>
+          <td>
+            @if (skill.iconUrl) {
+              <img [src]="skill.iconUrl.startsWith('http') ? skill.iconUrl : 'http://localhost:3000' + skill.iconUrl" width="40" height="40" alt="icon">
+            }
+          </td>
+          <td>{{ skill.name }}</td>
+          <td>{{ skill.description }}</td>
+          <td>
+            <button class="btn-primary" style="margin-right: 8px; background-color: #f59e0b;" (click)="editSkill(skill)">Edit</button>
+            <button class="btn-danger" (click)="deleteSkill(skill._id)">Delete</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center;">No skills found.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

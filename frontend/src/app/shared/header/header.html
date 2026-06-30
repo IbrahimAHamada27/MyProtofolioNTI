@@ -1,0 +1,42 @@
+<header class="header">
+  <div class="container">
+    <a routerLink="/" class="logo">
+      @if (siteInfo.logoImage) {
+        <img [src]="siteInfo.logoImage" alt="Logo" class="logo-img" />
+      }
+    </a>
+
+    <nav class="nav-desktop">
+      <a routerLink="/home" class="nav-link">About</a>
+      <a routerLink="/skills" class="nav-link">Skills</a>
+      <a routerLink="/projects" class="nav-link">Projects</a>
+      <a routerLink="/certificates" class="nav-link">Certificates</a>
+      <a routerLink="/experience" class="nav-link">Experience</a>
+      <a routerLink="/contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="actions">
+      <button class="theme-toggle" (click)="toggleTheme()">
+        <span class="icon">{{ isDarkMode ? '🌙' : '☀' }}</span>
+      </button>
+
+      <a routerLink="/contact" class="btn-primary">Get in Touch</a>
+
+      <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+        <span class="icon">☰</span>
+      </button>
+    </div>
+  </div>
+
+  @if (isMobileMenuOpen) {
+    <div class="mobile-menu">
+      <a routerLink="/home" class="nav-link" (click)="toggleMobileMenu()">About</a>
+      <a routerLink="/skills" class="nav-link" (click)="toggleMobileMenu()">Skills</a>
+      <a routerLink="/projects" class="nav-link" (click)="toggleMobileMenu()">Projects</a>
+      <a routerLink="/certificates" class="nav-link" (click)="toggleMobileMenu()">Certificates</a>
+      <a routerLink="/experience" class="nav-link" (click)="toggleMobileMenu()">Experience</a>
+      <a routerLink="/contact" class="nav-link" (click)="toggleMobileMenu()">Contact</a>
+      <a routerLink="/contact" class="btn-primary-mobile" (click)="toggleMobileMenu()">Get in Touch</a>
+    </div>
+  }
+</header>

@@ -1,0 +1,31 @@
+<section class="projects-section">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-subtitle">Here are some of the projects I've worked on recently.</p>
+    </div>
+
+    <div class="projects-grid">
+      @for (project of projects; track project._id) {
+        <div class="card">
+          <div class="card-content">
+            <h3 class="card-title">{{ project.title }}</h3>
+            <p class="card-desc">{{ project.description }}</p>
+            <div class="tech-stack">
+              @for (tech of project.technologies; track tech) {
+                <span class="tech-badge">{{ tech }}</span>
+              }
+            </div>
+            @if (project.link) {
+              <a [href]="project.link" target="_blank" rel="noopener noreferrer" class="btn-outline" style="margin-top: auto;">
+                View Project
+              </a>
+            }
+          </div>
+        </div>
+      } @empty {
+        <p class="no-projects">No projects found. Add some from the dashboard!</p>
+      }
+    </div>
+  </div>
+</section>

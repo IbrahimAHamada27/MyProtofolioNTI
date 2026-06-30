@@ -1,0 +1,57 @@
+<div class="dashboard-card">
+  <h2>Experience Management</h2>
+  
+  <button class="btn-primary" style="margin-bottom: 16px;" (click)="showForm ? cancelEdit() : showForm = true">
+    {{ showForm ? 'Cancel' : 'Add New Experience' }}
+  </button>
+
+  @if (showForm) {
+    <form class="dashboard-form" (submit)="onSubmit($event)" style="margin-bottom: 24px;">
+      <div class="form-group">
+        <label>Role</label>
+        <input type="text" name="role" [(ngModel)]="formData.role" required class="form-input">
+      </div>
+      <div class="form-group">
+        <label>Company</label>
+        <input type="text" name="company" [(ngModel)]="formData.company" required class="form-input">
+      </div>
+      <div class="form-group">
+        <label>Years</label>
+        <input type="text" name="years" [(ngModel)]="formData.years" required class="form-input">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea name="desc" [(ngModel)]="formData.desc" rows="3" required class="form-input"></textarea>
+      </div>
+      <button type="submit" class="btn-primary">{{ editingId ? 'Update Experience' : 'Save Experience' }}</button>
+    </form>
+  }
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Company</th>
+        <th>Years</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (exp of experiences; track exp._id) {
+        <tr>
+          <td>{{ exp.role }}</td>
+          <td>{{ exp.company }}</td>
+          <td>{{ exp.years }}</td>
+          <td>
+            <button class="btn-primary" style="margin-right: 8px; background-color: #f59e0b;" (click)="editExperience(exp)">Edit</button>
+            <button class="btn-danger" (click)="deleteExperience(exp._id)">Delete</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center;">No experiences found.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

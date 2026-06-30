@@ -1,0 +1,23 @@
+<section class="experience-section">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title">My Experience</h2>
+      <p class="section-subtitle">A brief history of my professional journey.</p>
+    </div>
+
+    <div class="timeline">
+      @for (exp of experiences; track exp._id) {
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3 class="exp-role">{{ exp.role }}</h3>
+            <div class="exp-company">{{ exp.company }} - {{ exp.years }}</div>
+            <p class="exp-desc">{{ exp.desc }}</p>
+          </div>
+        </div>
+      } @empty {
+        <p style="text-align: center; color: #6b7280; font-style: italic;">No experience found.</p>
+      }
+    </div>
+  </div>
+</section>
